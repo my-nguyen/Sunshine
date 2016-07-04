@@ -67,18 +67,6 @@ public class ForecastFragment extends Fragment {
         if (id == R.id.action_refresh) {
             updateWeather();
             return true;
-        } else if (id == R.id.action_preferred_location) {
-            // retrieve the preferred location from SharedPreferences
-            String settingLocation = getPreferenceValue(R.string.pref_preferred_location_key,
-                  R.string.pref_preferred_location_default);
-            Uri geoLocation = Uri.parse("geo:0,0?").buildUpon().appendQueryParameter("q", settingLocation).build();
-            Log.d("NGUYEN", "Location, setting: " + settingLocation + ", geo: " + geoLocation);
-            Intent intent = new Intent(Intent.ACTION_VIEW, geoLocation);
-            if (intent.resolveActivity(getActivity().getPackageManager()) == null)
-                Toast.makeText(getActivity(), "Invalid geo location: " + settingLocation, Toast.LENGTH_SHORT).show();
-            else
-                startActivity(intent);
-            return true;
         } else
             return super.onOptionsItemSelected(item);
     }
@@ -118,18 +106,11 @@ public class ForecastFragment extends Fragment {
 
     private void updateWeather() {
         // retrieve the location from SharedPreferences
-        String location = getPreferenceValue(R.string.pref_location_key, R.string.pref_location_default);
+        String location = Utility.getPreferenceValue(getActivity(), R.string.pref_location_key, R.string.pref_location_default);
 
         // asynchronously fetch weather data in the background
         FetchWeatherTask weatherTask = new FetchWeatherTask();
         weatherTask.execute(location);
-    }
-
-    private String getPreferenceValue(int keyResource, int defaultValueResource) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String key = getString(keyResource);
-        String defaultValue = getString(defaultValueResource);
-        return preferences.getString(key, defaultValue);
     }
 
     class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
@@ -298,7 +279,7 @@ public class ForecastFragment extends Fragment {
             String[] resultStrs = new String[numDays];
 
             // fetch unit type (metric or imperial) from user preferences
-            String unitType = getPreferenceValue(R.string.pref_units_key, R.string.pref_units_value_metric);
+            String unitType = Utility.getPreferenceValue(getActivity(), R.string.pref_units_key, R.string.pref_units_value_metric);
 
             for (int i = 0; i < weatherArray.length(); i++) {
                 // For now, using the format "Day, description, hi/low"

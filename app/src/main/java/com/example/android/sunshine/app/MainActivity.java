@@ -1,10 +1,13 @@
 package com.example.android.sunshine.app;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -37,6 +40,22 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
+            return true;
+        } else if (id == R.id.action_map) {
+            // retrieve the preferred location from SharedPreferences
+            String settingLocation = Utility.getPreferenceValue(this,
+                  R.string.pref_location_key,
+                  R.string.pref_location_default);
+            Uri geoLocation = Uri.parse("geo:0,0?")
+                  .buildUpon()
+                  .appendQueryParameter("q", settingLocation)
+                  .build();
+            Log.d("NGUYEN", "Location, setting: " + settingLocation + ", geo: " + geoLocation);
+            Intent intent = new Intent(Intent.ACTION_VIEW, geoLocation);
+            if (intent.resolveActivity(getPackageManager()) == null)
+                Toast.makeText(this, "Invalid geo location: " + settingLocation, Toast.LENGTH_SHORT).show();
+            else
+                startActivity(intent);
             return true;
         }
 
