@@ -17,8 +17,8 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new ForecastFragment())
-                    .commit();
+                  .add(R.id.container, new ForecastFragment())
+                  .commit();
         }
     }
 
@@ -50,7 +50,6 @@ public class MainActivity extends ActionBarActivity {
                   .buildUpon()
                   .appendQueryParameter("q", settingLocation)
                   .build();
-            Log.d("NGUYEN", "Location, setting: " + settingLocation + ", geo: " + geoLocation);
             Intent intent = new Intent(Intent.ACTION_VIEW, geoLocation);
             if (intent.resolveActivity(getPackageManager()) == null)
                 Toast.makeText(this, "Invalid geo location: " + settingLocation, Toast.LENGTH_SHORT).show();
