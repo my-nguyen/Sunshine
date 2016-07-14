@@ -7,14 +7,11 @@ package com.example.android.sunshine.app;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.example.android.sunshine.app.data.WeatherContract;
 
 /**
  * {@link ForecastAdapter} exposes a list of weather forecasts
@@ -48,8 +45,21 @@ public class ForecastAdapter extends CursorAdapter {
    @Override
    public void bindView(View view, Context context, Cursor cursor) {
       ViewHolder holder = (ViewHolder)view.getTag();
-      // Use placeholder image for now
-      holder.image.setImageResource(R.drawable.ic_launcher);
+      int viewType = getItemViewType(cursor.getPosition());
+      switch (viewType) {
+         case VIEW_TYPE_TODAY: {
+            int weatherId = cursor.getInt(ForecastFragment.COL_WEATHER_CONDITION_ID);
+            int resId = Utility.getArtResourceForWeatherCondition(weatherId);
+            holder.image.setImageResource(resId);
+            break;
+         }
+         case VIEW_TYPE_FUTURE_DAY: {
+            int weatherId = cursor.getInt(ForecastFragment.COL_WEATHER_CONDITION_ID);
+            int resId = Utility.getIconResourceForWeatherCondition(weatherId);
+            holder.image.setImageResource(resId);
+            break;
+         }
+      }
       // TODO Read date from cursor
       long dateInMillis = cursor.getLong(ForecastFragment.COL_WEATHER_DATE);
       holder.date.setText(Utility.getFriendlyDayString(context, dateInMillis));
@@ -83,11 +93,11 @@ public class ForecastAdapter extends CursorAdapter {
       public final TextView low;
 
       public ViewHolder(View view) {
-         image = (ImageView)view.findViewById(R.id.list_item_icon);
-         date = (TextView)view.findViewById(R.id.list_item_date_textview);
-         forecast = (TextView)view.findViewById(R.id.list_item_forecast_textview);
-         high = (TextView)view.findViewById(R.id.list_item_high_textview);
-         low = (TextView)view.findViewById(R.id.list_item_low_textview);
+         image = (ImageView)view.findViewById(R.id.image);
+         date = (TextView)view.findViewById(R.id.day);
+         forecast = (TextView)view.findViewById(R.id.date);
+         high = (TextView)view.findViewById(R.id.high);
+         low = (TextView)view.findViewById(R.id.low);
       }
    }
 }

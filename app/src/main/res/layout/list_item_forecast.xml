@@ -8,10 +8,10 @@
     android:padding="16dp"
     android:orientation="horizontal" >
     <ImageView
-        android:id="@+id/list_item_icon"
+        android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher"/>
+        android:src="@mipmap/ic_launcher"/>
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,11 +19,11 @@
         android:paddingLeft="16dp"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/list_item_date_textview"
+            android:id="@+id/day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
-            android:id="@+id/list_item_forecast_textview"
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -32,11 +32,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/list_item_high_textview"
+            android:id="@+id/high"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
-            android:id="@+id/list_item_low_textview"
+            android:id="@+id/low"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
