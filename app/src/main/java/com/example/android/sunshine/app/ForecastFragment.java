@@ -57,6 +57,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     private ForecastAdapter mForecastAdapter;
     private ListView mListView;
     private int mPosition = ListView.INVALID_POSITION;
+    private boolean mUseTodayLayout;
 
     // A callback interface that all activities containing this fragment must implement. This
     // mechanism allows activities to be notified of item selections.
@@ -92,6 +93,12 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             return super.onOptionsItemSelected(item);
     }
 
+    public void setUseTodayLayout(boolean useTodayLayout) {
+        mUseTodayLayout = useTodayLayout;
+        if (mForecastAdapter != null)
+            mForecastAdapter.setUseTodayLayout(mUseTodayLayout);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // the ForecastAdapter will take data from a source and use it to populate the ListView it's
@@ -125,6 +132,8 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             // the listview probably hasn't even been populated yet. actually perform the swapout
             // in onLoadFinished
             mPosition = savedInstanceState.getInt(SELECTED_KEY);
+
+        mForecastAdapter.setUseTodayLayout(mUseTodayLayout);
 
         return rootView;
     }
