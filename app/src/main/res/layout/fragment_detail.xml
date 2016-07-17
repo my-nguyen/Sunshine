@@ -5,39 +5,53 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_gravity="left"
         android:padding="@dimen/activity_vertical_margin"
         android:orientation="vertical">
         <TextView
             android:id="@+id/day"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/black"
+            android:textSize="24sp"/>
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/grey_700"
+            android:textSize="16sp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
             <LinearLayout
-                android:layout_width="0dp"
+                android:gravity="left"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/high"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textSize="96sp"/>
                 <TextView
                     android:id="@+id/low"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/grey_700"
+                    android:textSize="48sp"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
                 <ImageView
@@ -48,20 +62,33 @@
                 <TextView
                     android:id="@+id/forecast"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:textAppearanceLarge"
+                    android:textColor="@color/grey_700"/>
             </LinearLayout>
         </LinearLayout>
-        <TextView
-            android:id="@+id/humidity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/wind"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/pressure"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/humidity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:textAppearanceLarge"/>
+            <TextView
+                android:id="@+id/pressure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="?android:textAppearanceLarge"/>
+            <TextView
+                android:id="@+id/wind"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="?android:textAppearanceLarge"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
