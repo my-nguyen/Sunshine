@@ -9,12 +9,10 @@
         android:orientation="vertical">
         <TextView
             android:id="@+id/day"
-            android:text="Tomorrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/date"
-            android:text="July 13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <LinearLayout
@@ -29,12 +27,10 @@
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/high"
-                    android:text="21"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/low"
-                    android:text="11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -51,24 +47,20 @@
                     android:src="@mipmap/ic_launcher"/>
                 <TextView
                     android:id="@+id/forecast"
-                    android:text="Clear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
         <TextView
             android:id="@+id/humidity"
-            android:text="48%"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/wind"
-            android:text="6 km/h NW"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/pressure"
-            android:text="1014"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>

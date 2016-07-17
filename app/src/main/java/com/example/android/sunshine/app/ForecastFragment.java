@@ -29,9 +29,8 @@ import com.example.android.sunshine.app.data.WeatherContract;
  */
 public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String[] FORECAST_COLUMNS = {
-          // In this case the id needs to be fully qualified with a table name, since
-          // the content provider joins the location & weather tables in the background
-          // (both have an _id column)
+          // In this case the id needs to be fully qualified with a table name, since the content
+          // provider joins the location & weather tables in the background (both have an _id column)
           // On the one hand, that's annoying.  On the other, you can search the weather table
           // using the location set by the user, which is only in the Location table.
           // So the convenience is worth it.
@@ -58,6 +57,13 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     private static final int FORECAST_LOADER = 0;
 
     ForecastAdapter mForecastAdapter;
+
+    // A callback interface that all activities containing this fragment must implement. This
+    // mechanism allows activities to be notified of item selections.
+    public interface Callback {
+        // DetailFragmentCallback for when an item has been selected.
+        public void onItemSelected(Uri dateUri);
+    }
 
     public ForecastFragment() {
     }
@@ -103,11 +109,9 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
                 Cursor cursor = (Cursor) adapterView.getItemAtPosition(i);
                 if (cursor != null) {
                     String locationSetting = Utility.getPreferredLocation(getActivity());
-                    Intent intent = new Intent(getActivity(), DetailActivity.class)
-                          .setData(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
-                                locationSetting, cursor.getLong(COL_WEATHER_DATE)
-                          ));
-                    startActivity(intent);
+                    Callback callback = (Callback)getActivity();
+                    Uri dateUri = WeatherContract.WeatherEntry.buildWeatherLocationWithDate(locationSetting, cursor.getLong(COL_WEATHER_DATE));
+                    callback.onItemSelected(dateUri);
                 }
             }
         });

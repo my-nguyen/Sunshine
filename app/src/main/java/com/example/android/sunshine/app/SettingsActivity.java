@@ -1,11 +1,15 @@
 package com.example.android.sunshine.app;
 
+import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 public class SettingsActivity extends PreferenceActivity
       implements Preference.OnPreferenceChangeListener {
@@ -36,6 +40,13 @@ public class SettingsActivity extends PreferenceActivity
       String key = preference.getKey();
       String value = shared.getString(key, "");
       onPreferenceChange(preference, value);
+   }
+
+   @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+   @Override
+   public Intent getParentActivityIntent() {
+      // return super.getParentActivityIntent();
+      return super.getParentActivityIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
    }
 
    @Override
