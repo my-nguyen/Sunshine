@@ -4,6 +4,7 @@ package com.example.android.sunshine.app;
  * Created by my.nguyen on 6/27/16.
  */
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.android.sunshine.app.data.WeatherContract;
+import com.example.android.sunshine.app.service.SunshineService;
 
 // A placeholder fragment containing a simple view.
 public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -159,9 +161,9 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         // retrieve the location from SharedPreferences
         String location = Utility.getPreferenceValue(getActivity(), R.string.pref_location_key, R.string.pref_location_default);
 
-        // asynchronously fetch weather data in the background
-        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
-        weatherTask.execute(location);
+        Intent intent = new Intent(getActivity(), SunshineService.class);
+        intent.putExtra(SunshineService.LOCATION_QUERY_EXTRA, Utility.getPreferredLocation(getActivity()));
+        getActivity().startService(intent);;
     }
 
     @Override
