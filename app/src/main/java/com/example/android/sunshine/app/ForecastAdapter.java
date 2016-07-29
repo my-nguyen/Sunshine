@@ -65,7 +65,10 @@ public class ForecastAdapter extends CursorAdapter {
       long dateInMillis = cursor.getLong(ForecastFragment.COL_WEATHER_DATE);
       holder.date.setText(Utility.getFriendlyDayString(context, dateInMillis));
       // TODO Read weather forecast from cursor
-      holder.forecast.setText(cursor.getString(ForecastFragment.COL_WEATHER_DESC));
+      String description = cursor.getString(ForecastFragment.COL_WEATHER_DESC);
+      holder.forecast.setText(description);
+      // for accessibility, add a content description to the forecast field
+      holder.image.setContentDescription(description);
       // Read user preference for metric or imperial temperature units
       boolean isMetric = Utility.isMetric(context);
       // Read high temperature from cursor
