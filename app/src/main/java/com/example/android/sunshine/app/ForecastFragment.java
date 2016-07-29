@@ -4,6 +4,9 @@ package com.example.android.sunshine.app;
  * Created by my.nguyen on 6/27/16.
  */
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -24,6 +27,7 @@ import android.widget.ListView;
 
 import com.example.android.sunshine.app.data.WeatherContract;
 import com.example.android.sunshine.app.service.SunshineService;
+import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
 
 // A placeholder fragment containing a simple view.
 public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -158,12 +162,16 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateWeather() {
-        // retrieve the location from SharedPreferences
-        String location = Utility.getPreferenceValue(getActivity(), R.string.pref_location_key, R.string.pref_location_default);
-
-        Intent intent = new Intent(getActivity(), SunshineService.class);
-        intent.putExtra(SunshineService.LOCATION_QUERY_EXTRA, Utility.getPreferredLocation(getActivity()));
-        getActivity().startService(intent);;
+        SunshineSyncAdapter.syncImmediately(getActivity());
+        /*
+        Intent alarmIntent = new Intent(getActivity(), SunshineService.AlarmReceiver.class);
+        alarmIntent.putExtra(SunshineService.LOCATION_QUERY_EXTRA, Utility.getPreferredLocation(getActivity()));
+        //Wrap in a pending intent which only fires once.
+        PendingIntent pi = PendingIntent.getBroadcast(getActivity(), 0, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager am=(AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        //Set the AlarmManager to wake up the system 5 seconds from now.
+        am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 5000, pi);
+        */
     }
 
     @Override
