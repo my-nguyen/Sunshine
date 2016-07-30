@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.android.sunshine.app.data.DetailFragment;
+import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
 
 public class MainActivity extends ActionBarActivity implements ForecastFragment.Callback {
     private static final String DETAIL_FRAGMENT_TAG = "DETAIL_FRAGMENT_TAG";
@@ -60,6 +61,8 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
         FragmentManager fm = getSupportFragmentManager();
         ForecastFragment ff = (ForecastFragment)fm.findFragmentById(R.id.fragment_forecast);
         ff.setUseTodayLayout(!mTwoPane);
+
+        SunshineSyncAdapter.initializeSyncAdapter(this);
     }
 
     @Override
