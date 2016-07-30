@@ -161,13 +161,12 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
          // add a content description to the art icon for accessibility
          mImage.setContentDescription(description);
          // Read high temperature from cursor and update view
-         boolean isMetric = Utility.isMetric(getActivity());
          double high = cursor.getDouble(COL_WEATHER_MAX_TEMP);
-         String highString = Utility.formatTemperature(getActivity(), high, isMetric);
+         String highString = Utility.formatTemperature(getActivity(), high);
          mHigh.setText(highString);
          // Read low temperature from cursor and update view
          double low = cursor.getDouble(COL_WEATHER_MIN_TEMP);
-         String lowString = Utility.formatTemperature(getActivity(), low, isMetric);
+         String lowString = Utility.formatTemperature(getActivity(), low);
          mLow.setText(lowString);
          // Read humidity from cursor and update view
          float humidity = cursor.getFloat(COL_WEATHER_HUMIDITY);
